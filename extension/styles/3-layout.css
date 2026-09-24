@@ -1,0 +1,167 @@
+/* ============================================================
+   Stage 2.3 — Shell layout (AppShell, Header, Navigation)
+   ============================================================ */
+
+.pg-popup {
+  width: 392px;
+  max-width: 100%;
+  background: var(--pg-panel);
+  border: 1px solid var(--pg-border);
+  border-radius: var(--pg-radius-lg);
+  box-shadow: var(--pg-shadow);
+  overflow: hidden;
+}
+
+/* Header */
+.pg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+}
+
+.pg-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pg-brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--pg-brand-mark-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pg-brand-mark svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--pg-brand-icon-stroke);
+}
+
+.pg-brand-name {
+  font-weight: 600;
+  font-size: 15.5px;
+  letter-spacing: -0.01em;
+}
+
+.pg-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pg-status-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--pg-text-dim);
+  padding: 5px 10px 5px 8px;
+  border-radius: 100px;
+  background: var(--pg-panel-2);
+  border: 1px solid var(--pg-border);
+}
+
+.pg-expand-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--pg-panel-2);
+  border: 1px solid var(--pg-border);
+  color: var(--pg-text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pg-expand-btn svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+}
+
+.pg-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pg-accent);
+  box-shadow: 0 0 0 3px var(--pg-accent-wash);
+}
+
+.pg-status-chip--off .pg-status-dot {
+  background: var(--pg-text-faint);
+  box-shadow: none;
+}
+
+/* Navigation */
+.pg-nav-wrap {
+  padding: 0 16px;
+}
+
+.pg-nav {
+  --pg-nav-gap: 6px;
+  display: flex;
+  gap: var(--pg-nav-gap);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  padding: 3px;
+  position: relative;
+}
+
+.pg-nav-link {
+  flex: 1 1 0%;
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--pg-text-dim);
+  padding: 7px 0;
+  border-radius: 100px;
+  position: relative;
+  z-index: 1;
+}
+
+.pg-nav-link--active {
+  color: var(--pg-nav-active-text);
+  font-weight: 600;
+}
+
+.pg-nav-pill {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: calc((100% - 6px - (2 * var(--pg-nav-gap))) / 3);
+  height: calc(100% - 6px);
+  background: var(--pg-nav-active-bg);
+  border-radius: 100px;
+  box-shadow: var(--pg-nav-glow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Main content area */
+.pg-main {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---- Full-page entrypoints (dashboard/history/settings/warning) ---- */
+.pg-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.pg-page-wide .pg-popup {
+  width: 640px;
+}

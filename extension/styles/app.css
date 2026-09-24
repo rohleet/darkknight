@@ -1,0 +1,7 @@
+/* Single entry point — import order matters, later files assume
+   the custom properties/classes from earlier ones exist. */
+@import "./1-tokens.css";
+@import "./2-base.css";
+@import "./3-layout.css";
+@import "./4-components.css";
+@import "./5-animations.css";

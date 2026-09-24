@@ -1,0 +1,65 @@
+/* ============================================================
+   Stage 2.1 — Design tokens
+   All color/radius values as CSS custom properties. Nothing here
+   renders anything by itself; base/layout/components consume these.
+   ============================================================ */
+
+:root {
+  --pg-radius-lg: 22px;
+  --pg-radius-md: 14px;
+  --pg-radius-sm: 9px;
+
+  /* Verdict colors are constant across both themes — they carry
+     meaning (severity), not brand decoration, so they don't
+     re-theme with light/dark. */
+  --pg-safe: #22d3c0;
+  --pg-suspicious: #f2b84b;
+  --pg-highrisk: #f28c4b;
+  --pg-phishing: #f2604b;
+}
+
+/* Dark theme — near-black + teal accent */
+[data-theme="dark"] {
+  --pg-page-bg: #0a0b0d;
+  --pg-panel: #141619;
+  --pg-panel-2: #1b1e23;
+  --pg-panel-3: #21252b;
+  --pg-border: rgba(255, 255, 255, 0.08);
+  --pg-border-strong: rgba(255, 255, 255, 0.14);
+  --pg-text: #f2f3f5;
+  --pg-text-dim: #9aa1ac;
+  --pg-text-faint: #676e79;
+  --pg-accent: #22d3c0;
+  --pg-accent-wash: rgba(34, 211, 192, 0.12);
+  --pg-brand-mark-bg: linear-gradient(160deg, var(--pg-accent), #12796e);
+  --pg-brand-icon-stroke: #06110f;
+  --pg-nav-active-text: #06110f;
+  --pg-nav-active-bg: rgba(34, 211, 192, 0.72);
+  --pg-btn-primary-bg: var(--pg-accent);
+  --pg-btn-primary-text: #06110f;
+  --pg-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --pg-nav-glow: 0 0 14px rgba(34, 211, 192, 0.55);
+}
+
+/* Light theme — off-white surfaces, near-black ink, white active states */
+[data-theme="light"] {
+  --pg-page-bg: #eef0f2;
+  --pg-panel: #ffffff;
+  --pg-panel-2: #f1f2f4;
+  --pg-panel-3: #e7e9ec;
+  --pg-border: rgba(15, 17, 21, 0.08);
+  --pg-border-strong: rgba(15, 17, 21, 0.14);
+  --pg-text: #14161a;
+  --pg-text-dim: #676d78;
+  --pg-text-faint: #9aa0aa;
+  --pg-accent: #22d3c0;
+  --pg-accent-wash: rgba(34, 211, 192, 0.14);
+  --pg-brand-mark-bg: linear-gradient(160deg, #1c1e22, #050607);
+  --pg-brand-icon-stroke: #ffffff;
+  --pg-nav-active-text: #14161a;
+  --pg-nav-active-bg: rgba(255, 255, 255, 0.55);
+  --pg-btn-primary-bg: #14161a;
+  --pg-btn-primary-text: #ffffff;
+  --pg-shadow: 0 20px 45px -22px rgba(20, 22, 26, 0.18), 0 0 0 1px rgba(15, 17, 21, 0.02);
+  --pg-nav-glow: 0 0 10px rgba(20, 22, 26, 0.14);
+}

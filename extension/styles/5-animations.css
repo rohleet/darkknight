@@ -1,0 +1,164 @@
+/* ============================================================
+   Stage 3 — Transitions & animation
+   Everything here is additive: removing this file should degrade
+   gracefully to static states, never break layout.
+   ============================================================ */
+
+/* Lets the browser interpolate an <angle> custom property, which is
+   what makes the risk ring able to animate as a smooth sweep instead
+   of jumping straight to its final value. */
+@property --pg-ring-deg {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* Theme switch: background/text crossfade instead of a hard cut */
+body {
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.pg-popup,
+.pg-card,
+.pg-score-card,
+.pg-evidence-item,
+.pg-status-chip,
+.pg-favicon,
+.pg-rescan-btn {
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Nav pill slide between tabs */
+.pg-nav-pill {
+  /* Moves by its own width plus one gap each step — plain 100% alone
+     would land short now that there's real spacing between tabs. */
+  transform: translateX(calc(var(--pg-nav-index, 0) * (100% + var(--pg-nav-gap, 6px))));
+  transition: transform 0.28s cubic-bezier(0.65, 0, 0.35, 1), background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.pg-nav-link {
+  transition: color 0.2s ease;
+}
+
+/* Risk ring: sweep in from 0 to its target angle on mount */
+.pg-score-ring {
+  --pg-ring-deg: var(--pg-ring-target, 0deg);
+  animation: pg-ring-sweep 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes pg-ring-sweep {
+  from {
+    --pg-ring-deg: 0deg;
+  }
+  to {
+    --pg-ring-deg: var(--pg-ring-target, 0deg);
+  }
+}
+
+/* Evidence rows: staggered fade/rise on mount */
+.pg-evidence-item {
+  animation: pg-rise-in 0.35s ease both;
+}
+.pg-evidence-group:nth-of-type(1) .pg-evidence-item:nth-child(2) { animation-delay: 0.05s; }
+.pg-evidence-group:nth-of-type(1) .pg-evidence-item:nth-child(3) { animation-delay: 0.1s; }
+.pg-evidence-group:nth-of-type(2) .pg-evidence-item { animation-delay: 0.15s; }
+@keyframes pg-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Buttons: press feedback */
+.pg-btn {
+  transition: transform 0.12s ease, opacity 0.12s ease, background 0.2s ease;
+}
+.pg-btn:hover {
+  opacity: 0.9;
+}
+.pg-btn:active {
+  transform: scale(0.97);
+}
+.pg-rescan-btn {
+  transition: transform 0.12s ease;
+}
+.pg-rescan-btn:active {
+  transform: scale(0.95);
+}
+
+/* Respect reduced-motion: kill everything above, keep final states */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .pg-score-ring {
+    --pg-ring-deg: var(--pg-ring-target, 0deg);
+  }
+}
+
+/* Settings switch: thumb slide + track color crossfade */
+.pg-switch {
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.pg-switch-thumb {
+  transition: transform 0.2s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.pg-switch--on .pg-switch-thumb {
+  transform: translateX(16px);
+}
+
+/* History rows: same rise-in treatment as evidence rows */
+.pg-history-item {
+  animation: pg-rise-in 0.3s ease both;
+}
+.pg-history-list .pg-history-item:nth-child(2) { animation-delay: 0.04s; }
+.pg-history-list .pg-history-item:nth-child(3) { animation-delay: 0.08s; }
+.pg-history-list .pg-history-item:nth-child(4) { animation-delay: 0.12s; }
+
+/* Warning banner: brief attention pulse on mount, once */
+.pg-warning-icon {
+  animation: pg-warning-pulse 1.4s ease-out 1;
+}
+@keyframes pg-warning-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(242, 96, 75, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(242, 96, 75, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(242, 96, 75, 0); }
+}
+
+/* Expand button + back button: subtle hover/press feedback */
+.pg-expand-btn,
+.pg-back-btn {
+  transition: opacity 0.15s ease, transform 0.12s ease;
+}
+.pg-expand-btn:hover {
+  opacity: 0.85;
+}
+.pg-expand-btn:active,
+.pg-back-btn:active {
+  transform: scale(0.95);
+}
+
+/* View switch (Dashboard <-> History <-> Settings, and drilling into
+   History Details): the whole content area cross-fades + rises in on
+   every switch, instead of an instant cut. Keying the wrapper by `view`
+   in PhishGuardApp.tsx is what triggers this on every change. */
+.pg-view-fade {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: pg-view-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes pg-view-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
